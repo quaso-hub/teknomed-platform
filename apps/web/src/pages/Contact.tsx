@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createInquiry } from '@teknomed/database';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '', product_id: null as string | null });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 

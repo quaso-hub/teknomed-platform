@@ -7,15 +7,27 @@ import type { Database } from './types';
 
 let client: SupabaseClient<Database> | null = null;
 
+function getEnv(key: string): string | undefined {
+  // Vite (import.meta.env)
+  try {
+    const viteEnv = (import.meta as Record<string, unknown>).env as Record<string, string> | undefined;
+    if (viteEnv?.[key]) return viteEnv[key];
+  } catch {}
+  // Node (process.env)
+  try {
+    if (typeof process !== 'undefined' && process.env?.[key]) return process.env[key];
+  } catch {}
+  return undefined;
+}
+
 /**
  * Get or create Supabase client singleton.
- * Uses VITE_ env vars (works in both Vite and Node).
  */
 export function getSupabase(): SupabaseClient<Database> {
   if (client) return client;
 
-  const url = import.meta.env.VITE_SUPABASE_URL ?? process.env.VITE_SUPABASE_URL;
-  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? process.env.VITE_SUPABASE_ANON_KEY;
+  const url = getEnv('VITE_SUPABASE_URL');
+  const anonKey = getEnv('VITE_SUPABASE_ANON_KEY');
 
   if (!url || !anonKey) {
     throw new Error(
