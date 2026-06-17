@@ -7,7 +7,10 @@ const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const ProductsList = lazy(() => import('./pages/products/ProductsList'));
 const ProductForm = lazy(() => import('./pages/products/ProductForm'));
+const ProjectsList = lazy(() => import('./pages/projects/ProjectsList'));
+const ProjectForm = lazy(() => import('./pages/projects/ProjectForm'));
 const InquiriesList = lazy(() => import('./pages/inquiries/InquiriesList'));
+const UsersList = lazy(() => import('./pages/users/UsersList'));
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -40,7 +43,11 @@ export function App() {
                   <Route path="/products" element={<ProductsList />} />
                   <Route path="/products/new" element={<ProductForm />} />
                   <Route path="/products/:id/edit" element={<ProductForm />} />
+                  <Route path="/projects" element={<ProjectsList />} />
+                  <Route path="/projects/new" element={<ProjectForm />} />
+                  <Route path="/projects/:id/edit" element={<ProjectForm />} />
                   <Route path="/inquiries" element={<InquiriesList />} />
+                  <Route path="/users" element={<UsersList />} />
                 </Routes>
               </AdminLayout>
             </ProtectedRoute>

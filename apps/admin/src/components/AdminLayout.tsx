@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { signOut } from '@teknomed/database';
-import { LayoutDashboard, Package, MessageSquare, LogOut } from 'lucide-react';
+import { LayoutDashboard, Package, FolderKanban, MessageSquare, Users, LogOut } from 'lucide-react';
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/products', label: 'Produk', icon: Package },
+  { to: '/projects', label: 'Proyek', icon: FolderKanban },
   { to: '/inquiries', label: 'Inquiry', icon: MessageSquare },
+  { to: '/users', label: 'Users', icon: Users },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
