@@ -10,7 +10,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist .turbo"
+    "clean": "if exist dist rmdir /s /q dist && if exist .turbo rmdir /s /q .turbo"
   },
   "dependencies": {
     "three": "^0.183.0"
