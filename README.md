@@ -58,3 +58,5 @@ cp .env.example .env
 2. Run `supabase/schema.sql` in SQL Editor
 3. Create storage buckets: `images`, `models`, `pdf`
 4. Update `.env` with Supabase URL + keys
+
+<!-- deploy trigger: 2026-06-18 02:11 -->
