@@ -100,15 +100,3 @@ export type ProjectUpdate = Partial<ProjectInsert>;
 
 export type InquiryInsert = Omit<Inquiry, 'id' | 'status' | 'admin_notes' | 'created_at'> & { product_id?: string | null };
 export type InquiryUpdate = Partial<Pick<Inquiry, 'status' | 'admin_notes'>>;
-
-// ── Supabase Database type (for createClient generic) ──
-export interface Database {
-  public: {
-    Tables: {
-      products: { Row: Product; Insert: ProductInsert; Update: ProductUpdate };
-      projects: { Row: Project; Insert: ProjectInsert; Update: ProjectUpdate };
-      inquiries: { Row: Inquiry; Insert: InquiryInsert; Update: InquiryUpdate };
-      user_profiles: { Row: UserProfile; Insert: Partial<UserProfile>; Update: Partial<UserProfile> };
-    };
-  };
-}

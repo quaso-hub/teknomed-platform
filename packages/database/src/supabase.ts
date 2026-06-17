@@ -3,17 +3,14 @@
 // ─────────────────────────────────────────────────────────────
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from './types';
 
-let client: SupabaseClient<Database> | null = null;
+let client: SupabaseClient | null = null;
 
 function getEnv(key: string): string | undefined {
-  // Vite (import.meta.env)
   try {
-    const viteEnv = (import.meta as Record<string, unknown>).env as Record<string, string> | undefined;
+    const viteEnv = (import.meta as unknown as { env: Record<string, string> }).env;
     if (viteEnv?.[key]) return viteEnv[key];
   } catch {}
-  // Node (process.env)
   try {
     if (typeof process !== 'undefined' && process.env?.[key]) return process.env[key];
   } catch {}
@@ -23,7 +20,7 @@ function getEnv(key: string): string | undefined {
 /**
  * Get or create Supabase client singleton.
  */
-export function getSupabase(): SupabaseClient<Database> {
+export function getSupabase(): SupabaseClient {
   if (client) return client;
 
   const url = getEnv('VITE_SUPABASE_URL');
@@ -35,7 +32,7 @@ export function getSupabase(): SupabaseClient<Database> {
     );
   }
 
-  client = createClient<Database>(url, anonKey, {
+  client = createClient(url, anonKey, {
     auth: {
       autoRefreshToken: true,
       persistSession: true,
@@ -47,14 +44,14 @@ export function getSupabase(): SupabaseClient<Database> {
 }
 
 /**
- * Create Supabase client with custom config (for admin/service role).
+ * Create Supabase client with custom config.
  */
 export function createSupabaseClient(
   url: string,
   key: string,
   options?: { serviceRole?: boolean },
-): SupabaseClient<Database> {
-  return createClient<Database>(url, key, {
+): SupabaseClient {
+  return createClient(url, key, {
     auth: {
       autoRefreshToken: !options?.serviceRole,
       persistSession: !options?.serviceRole,
